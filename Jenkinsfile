@@ -5,6 +5,7 @@ pipeline {
         AZURE_CREDENTIALS_ID = 'azure-service-principal'
         RESOURCE_GROUP = 'rg-jenkins'
         APP_SERVICE_NAME = 'reactapijenkinsrudram015'
+        TERRAFORM_PATH = 'E:/Download Brave/terraform_1.11.3_windows_386/terraform.exe'
     }
 
     stages {
@@ -17,7 +18,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 dir('terraform') {
-                    bat 'terraform init'
+                    bat '"%TERRAFORM_PATH%" init'
                 }
             }
         }
@@ -25,8 +26,8 @@ pipeline {
         stage('Terraform Plan & Apply') {
             steps {
                 dir('terraform') {
-                    bat 'terraform plan -out=tfplan'
-                    bat 'terraform apply -auto-approve tfplan'
+                    bat '"%TERRAFORM_PATH%" plan -out=tfplan'
+                    bat '"%TERRAFORM_PATH%" apply -auto-approve tfplan'
                 }
             }
         }
