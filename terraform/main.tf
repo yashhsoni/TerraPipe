@@ -1,6 +1,6 @@
 provider "azurerm" {
   features {}
-  subscription_id = "4947feb5-b5f6-4284-acce-df1b262aedb0"
+  subscription_id = "48d76acf-b951-48f0-bd29-6e39414dfcf3"
 }
 
 resource "azurerm_resource_group" "this" {
@@ -18,7 +18,7 @@ resource "azurerm_service_plan" "this" {
 }
 
 resource "azurerm_linux_web_app" "this" {
-  name                = "reactapijenkinsrudram015"
+  name                = "reactapijenkinsyashh015"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   service_plan_id     = azurerm_service_plan.this.id  # Updated attribute
