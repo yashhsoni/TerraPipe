@@ -4,8 +4,8 @@ pipeline {
     environment {
         AZURE_CREDENTIALS_ID = 'azure-service-principal'
         RESOURCE_GROUP = 'rg-jenkins'
-        APP_SERVICE_NAME = 'reactapijenkinsrudram015'
-        TERRAFORM_PATH = 'E:/Download Brave/terraform_1.11.3_windows_386/terraform.exe'
+        APP_SERVICE_NAME = 'reactapijenkinsyashh015'
+        TERRAFORM_PATH = 'C:\\Users\\soniy\\Downloads\\terraform_1.11.3_windows_386\\terraform.exe'
     }
 
     stages {
