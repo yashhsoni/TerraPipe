@@ -26,8 +26,13 @@ pipeline {
         stage('Terraform Plan & Apply') {
             steps {
                 dir('terraform') {
-                    bat '"%TERRAFORM_PATH%" plan -out=tfplan'
-                    bat '"%TERRAFORM_PATH%" apply -auto-approve tfplan'
+                    bat '''
+                        "%TERRAFORM_PATH%" plan -out=tfplan
+                        IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
+                        
+                        "%TERRAFORM_PATH%" apply -auto-approve tfplan
+                        IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
+                    '''
                 }
             }
         }
@@ -35,8 +40,13 @@ pipeline {
         stage('Build React App') {
             steps {
                 dir('my-react-app') {
-                    bat 'npm install'
-                    bat 'npm run build'
+                    bat '''
+                        npm install
+                        IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
+
+                        npm run build
+                        IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
+                    '''
                 }
             }
         }
@@ -58,8 +68,11 @@ pipeline {
                         xcopy /s /e /y my-react-app\\build\\* publish\\
 
                         az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
+                        
                         powershell Compress-Archive -Path publish\\* -DestinationPath publish.zip -Force
+
                         az webapp deploy --resource-group %RESOURCE_GROUP% --name %APP_SERVICE_NAME% --src-path publish.zip --type zip --verbose
+                        IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
                         '''
                     }
                 }
