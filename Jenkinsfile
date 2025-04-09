@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'master', url: 'https://github.com/mishra-rd015/react-azure-pipeline.git'
+                git branch: 'master', url: 'https://github.com/yashhsoni/TerraPipe.git'
             }
         }
 
