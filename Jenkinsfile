@@ -70,4 +70,15 @@ pipeline {
 
                         xcopy /s /e /y my-react-app\\build\\* publish\\
 
-                        az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_  '''
+                        powershell Compress-Archive -Path publish\\* -DestinationPath publish.zip
+
+                        az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
+
+                        az webapp deployment source config-zip --resource-group %RESOURCE_GROUP% --name %APP_SERVICE_NAME% --src publish.zip
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}
