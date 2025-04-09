@@ -70,4 +70,4 @@ pipeline {
 
                         xcopy /s /e /y my-react-app\\build\\* publish\\
 
-                        az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_
+                        az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_  '''
